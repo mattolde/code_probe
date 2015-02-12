@@ -10,8 +10,8 @@ phantom.create(function(ph){
                 return document.title;
             }, function(result){
                 console.log('Page title is ', result);
-                ph.exit;
+                ph.exit();
             });
         });
     });
-})
+});
