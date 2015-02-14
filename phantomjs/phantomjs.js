@@ -11,7 +11,7 @@ phantom.create(function(ph){
 
         page.open('http://phantomjs.org/api/webpage/property/paper-size.html', function(status){
 
-            console.log('opened google?', status);
+            console.log('opened website status: ', status);
 
             page.evaluate(function(){
                 return document.title;
