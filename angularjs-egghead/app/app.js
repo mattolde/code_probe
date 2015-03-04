@@ -126,7 +126,14 @@ angular.module('Eggly', [
     return $scope.editedBookmark !== null && $scope.editedBookmark.id === bookmarkId;
   }
 
+  function deleteBookmark(bookmark){
+    _.remove($scope.bookmarks, function(b){
+      return b.id === bookmark.id;
+    });
+  }
 
+
+  $scope.deleteBookmark = deleteBookmark;
   $scope.updateBookmark = updateBookmark;
   $scope.setEditedBookmark = setEditedBookmark;
   $scope.isSelectedBookmark = isSelectedBookmark;
