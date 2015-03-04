@@ -1,11 +1,44 @@
-<!DOCTYPE>
+<!doctype html>
 <html>
-  <head></head>
-  <body ng-app>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Bookmarks</title>
 
-    
-
-
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  </head>
+  <body np-app>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li><a href="#">Category</a></li>
+                    <li><a href="#">Category</a></li>
+                    <li><a href="#">Category</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <div>
+                    <button type="button" class="close">&times;</button>
+                    <button type="button" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span></button>
+                    <a href="#" target="_blank">Bookmark</a>
+                </div>
+                <div>
+                    <button type="button" class="close">&times;</button>
+                    <button type="button" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span></button>
+                    <a href="#" target="_blank">Bookmark</a>
+                </div>
+                <div>
+                    <button type="button" class="close">&times;</button>
+                    <button type="button" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span></button>
+                    <a href="#" target="_blank">Bookmark</a>
+                </div>
+                <hr/>
+            </div>
+        </div>
+    </div>
+    <script src='bower_components/jquery/dist/jquery.min.js'></script>
+    <script src='bower_components/bootstrap/dist/js/bootstrap.min.js'></script>
     <script src='bower_components/angular/angular.min.js'></script>
   </body>
 </html>
