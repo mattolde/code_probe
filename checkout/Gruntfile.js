@@ -2,7 +2,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     jasmine : {
       // Source files
-      src : 'index.js',
+      src : '*.js',
       options:{
         // Jasmine spec files
         specs : 'test/*Spec.js'
@@ -10,7 +10,7 @@ module.exports = function(grunt) {
     },
     watch: {
       scripts: {
-        files: ['index.js'],
+        files: ['index.js', 'test/*Spec.js'],
         tasks: ['jasmine'],
         options: {
           spawn: false,
