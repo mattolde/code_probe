@@ -7,11 +7,21 @@ module.exports = function(grunt) {
         // Jasmine spec files
         specs : 'test/*Spec.js'
       }
+    },
+    watch: {
+      scripts: {
+        files: ['index.js'],
+        tasks: ['jasmine'],
+        options: {
+          spawn: false,
+        },
+      },
     }
   });
 
   // Register tasks.
   grunt.loadNpmTasks('grunt-contrib-jasmine');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task.
   grunt.registerTask('default', 'jasmine');
