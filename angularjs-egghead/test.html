@@ -1,0 +1,17 @@
+<html>
+<body ng-app="myApp" ng-controller="myController">
+   <select ng-model="selected" ng-options="car.model group by car.brand for car in cars"></select>
+   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+   <script type="text/javascript">
+      var app = angular.module('myApp', []);
+      app.controller('myController', function($scope) {
+         $scope.cars = [
+            { brand: 'Mercedes', type: 'sport', color: 'red', model: 'F 800 Style' },
+            { brand: 'Toyota', type: 'SUV', color: 'white', model: 'Highlander' },
+            { brand: 'Ford', type: 'SUV', color: 'black', model: 'Explorer' },
+            { brand: 'Toyota', type: 'compact', color: 'white', model: 'iQ' }
+         ];
+      });
+   </script>
+ </body>
+</html>
