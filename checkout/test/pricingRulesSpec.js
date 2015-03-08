@@ -4,9 +4,12 @@ describe("Pricing Rules", function() {
   beforeEach(function() {
     // test with pricing rules
     checkout = new Checkout(pricingRules);
+
     itemAppleTv = new Item('atv', 'Apple TV', 109.50);
     itemMacBookPro = new Item('mbp', 'MacBook Pro', 1399.99);
     itemVGA = new Item('vga', 'VGA adaptor', 30.00);
+    itemSuperIpad = new Item('ipd', 'Super iPad', 549.99);
+
   });
 
   afterEach(function(){
@@ -22,12 +25,23 @@ describe("Pricing Rules", function() {
     checkout.scan(itemAppleTv);
 
     expect(checkout.total()).toBe(219.00);
+
   });
 
   // Super iPad will have a bulk discounted applied, where the price will drop to $499.99 each, if someone buys more than 4
   it("should charge give a bulk discount of $499.99 on each Super iPad when more then 4 are purchased", function() {
 
-    expect(true).toBe(false);
+    checkout.scan(itemSuperIpad);
+    checkout.scan(itemSuperIpad);
+    checkout.scan(itemSuperIpad);
+    checkout.scan(itemSuperIpad);
+
+    expect(checkout.total()).toBe(2199.96);
+
+    checkout.scan(itemSuperIpad);
+
+    expect(checkout.total()).toBe(2499.95);
+
 
   });
 
