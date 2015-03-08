@@ -1,10 +1,12 @@
 describe("Pricing Rules", function() {
-  var checkout, itemAppleTv;
+  var checkout, itemAppleTv, itemMacBookPro, itemVGA;
 
   beforeEach(function() {
     // test with pricing rules
-     checkout = new Checkout(pricingRules);
-     itemAppleTv = new Item('atv', 'Apple TV', 109.50);
+    checkout = new Checkout(pricingRules);
+    itemAppleTv = new Item('atv', 'Apple TV', 109.50);
+    itemMacBookPro = new Item('mbp', 'MacBook Pro', 1399.99);
+    itemVGA = new Item('vga', 'VGA adaptor', 30.00);
   });
 
   afterEach(function(){
