@@ -48,7 +48,11 @@ describe("Pricing Rules", function() {
   // bundle in a free VGA adapter free of charge with every MacBook Pro sold
   it("should receive a free VGA adapter for every Macbook Pro purchased", function() {
 
-    expect(true).toBe(false);
+    checkout.scan(itemMacBookPro);
+
+    expect(checkout.items.vga).toBeDefined();
+
+    expect(checkout.items.vga.price).toBe(0.00);
 
   });
 
