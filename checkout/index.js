@@ -26,12 +26,15 @@ var each = function(items, callback){
 
 
 var pricingRules = {
+
   appleTvDeal: function(){
+
     // 3 for 2 deal on Apple TVs. e.g. buy 3 Apple TVs, you will pay the price of 2 only
 
     var self = this;
 
     each(this.items, function(item){
+
       if(item.sku === 'atv'){
 
         if(item.quantity >= 3){
@@ -43,10 +46,14 @@ var pricingRules = {
         }
 
       }
+
     });
 
   },
+
   superIpadDeal: function(){
+
+    // Super iPad will have a bulk discounted applied, where the price will drop to $499.99 each, if someone buys more than 4
 
     var self = this;
 
@@ -67,8 +74,42 @@ var pricingRules = {
     });
 
   },
-  macbookProDeal: function(items){
-    return 0;
+
+  macbookProDeal: function(){
+
+    var self = this;
+
+    each(this.items, function(item){
+
+      if(item.sku === 'mbp'){
+
+        var itemMbp = item;
+
+        // apply discount only if VGA adapter has been scanned into checkout
+
+        each(self.items, function(itemSearch){
+
+          if(itemSearch.sku === 'vga'){
+
+            var itemVga = itemSearch;
+
+            var discountedVGACount = itemMbp.quantity >= itemVga.quantity ? itemVga.quantity : itemMbp.quantity;
+
+            // remove the price for VGA adapter
+
+            var discount = Math.abs(itemVga.price * discountedVGACount) * -1;
+
+            self.discounts.push(['Free VGA adapter with MacBook Pro purchase', discount]);
+
+          }
+
+
+        });
+
+      }
+
+    });
+
   }
 };
 
@@ -126,35 +167,43 @@ Checkout.prototype.getItemCount = function(){
 };
 
 
-Checkout.prototype.applySpecial = function(){
-  // apply special to checkout
-};
-
-
 Checkout.prototype.total = function(){
 
-  // remove discounts so they are not applied twice
+  // Remove discounts so they are not applied twice
+
   this.removeAllDiscounts();
 
-  // apply specials
+
+
+  // Calculate pricing rules on checkout items
+
   var self = this;
 
   each(this.pricingRules, function(pricingRuleFunction){
+
     pricingRuleFunction.call(self);
+
   });
 
-  // calculate checkout total
+
+
+  // Calculate checkout total
   var total = 0.00;
 
   each(this.items, function(item){
     total += item.quantity * item.price;
   });
 
+
+
+  // Apply discount amounts to total
   if(this.discounts.length > 0){
     each(this.discounts, function(discount){
       total += discount[1];
     });
   }
+
+
 
   // round total to 2 decimal places
   return Math.round(total * 100) / 100;

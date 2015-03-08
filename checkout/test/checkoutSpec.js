@@ -28,7 +28,7 @@ describe("Checkout", function() {
   });
 
 
-  it('should increase the quantity of the item when scanned into checkout', function() {
+  it('should increase the quantity of the item when scanned into checkout more then once', function() {
 
     var item1 = new Item('atv', 'Apple TV', 109.50);
     checkout.scan(item1);
