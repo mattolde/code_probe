@@ -29,16 +29,17 @@ var pricingRules = {
   appleTvDeal: function(){
     // 3 for 2 deal on Apple TVs. e.g. buy 3 Apple TVs, you will pay the price of 2 only
 
-    var count = 0;
-
     var self = this;
 
     each(this.items, function(item){
       if(item.sku === 'atv'){
 
         if(item.quantity >= 3){
-          var discount = -109.50;
+
+          var discount = -109.50 * Math.floor(item.quantity / 3);
+
           self.discounts.push(['Buy 3 Apple TVs pay the price of 2', discount]);
+
         }
 
       }
@@ -86,6 +87,11 @@ Checkout.prototype.scan = function(item){
 };
 
 
+Checkout.prototype.removeAllDiscounts = function(){
+  this.discounts = [];
+};
+
+
 Checkout.prototype.removeAllItems = function(){
   this.items = {};
 };
@@ -109,6 +115,9 @@ Checkout.prototype.applySpecial = function(){
 
 Checkout.prototype.total = function(){
 
+  // remove discounts so they are not applied twice
+  this.removeAllDiscounts();
+
   // apply specials
   var self = this;
 
@@ -122,7 +131,6 @@ Checkout.prototype.total = function(){
   each(this.items, function(item){
     total += item.quantity * item.price;
   });
-
 
   if(this.discounts.length > 0){
     each(this.discounts, function(discount){

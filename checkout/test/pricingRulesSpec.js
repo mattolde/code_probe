@@ -13,6 +13,7 @@ describe("Pricing Rules", function() {
   });
 
   afterEach(function(){
+    checkout.removeAllDiscounts();
     checkout.removeAllItems();
   });
 
@@ -28,16 +29,25 @@ describe("Pricing Rules", function() {
 
   });
 
-  it("should charge for only four Apple TVs when six are purchased", function() {
+  it("should charge for only two Apple TVs when three are purchased multiple times", function() {
 
     checkout.scan(itemAppleTv);
     checkout.scan(itemAppleTv);
     checkout.scan(itemAppleTv);
+
+    expect(checkout.total()).toBe(219.00);
+
     checkout.scan(itemAppleTv);
     checkout.scan(itemAppleTv);
     checkout.scan(itemAppleTv);
 
     expect(checkout.total()).toBe(438.00);
+
+    checkout.scan(itemAppleTv);
+    checkout.scan(itemAppleTv);
+    checkout.scan(itemAppleTv);
+
+    expect(checkout.total()).toBe(657.00);
 
   });
 
