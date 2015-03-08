@@ -1,9 +1,16 @@
 describe("Checkout", function() {
 
-  var checkout;
+  var checkout, itemAppleTv, itemMacBookPro, itemVGA, itemSuperIpad;
 
   beforeEach(function() {
+
     checkout = new Checkout({});
+
+    itemAppleTv = new Item('atv', 'Apple TV', 109.50);
+    itemMacBookPro = new Item('mbp', 'MacBook Pro', 1399.99);
+    itemVGA = new Item('vga', 'VGA adaptor', 30.00);
+    itemSuperIpad = new Item('ipd', 'Super iPad', 549.99);
+
   });
 
   afterEach(function(){
@@ -20,8 +27,7 @@ describe("Checkout", function() {
 
   it('should scan a new item into checkout', function() {
 
-    var item = new Item('atv', 'Apple TV', 109.50);
-    checkout.scan(item);
+    checkout.scan(itemAppleTv);
 
     expect(checkout.items.atv.name).toBe('Apple TV');
 
@@ -30,18 +36,15 @@ describe("Checkout", function() {
 
   it('should increase the quantity of the item when scanned into checkout more then once', function() {
 
-    var item1 = new Item('atv', 'Apple TV', 109.50);
-    checkout.scan(item1);
+    checkout.scan(itemAppleTv);
 
     expect(checkout.getItemCount()).toBe(1);
 
-    var item2 = new Item('mbp', 'MacBook Pro', 1399.99);
-    checkout.scan(item2);
+    checkout.scan(itemMacBookPro);
 
     expect(checkout.getItemCount()).toBe(2);
 
-    var item3 = new Item('vga', 'VGA adaptor', 30.00);
-    checkout.scan(item3);
+    checkout.scan(itemVGA);
 
     expect(checkout.getItemCount()).toBe(3);
 
@@ -50,12 +53,9 @@ describe("Checkout", function() {
 
   it('should scan multiple items into checkout', function(){
 
-    var item1 = new Item('atv', 'Apple TV', 109.50);
-    checkout.scan(item1);
-    var item2 = new Item('mbp', 'MacBook Pro', 1399.99);
-    checkout.scan(item2);
-    var item3 = new Item('vga', 'VGA adaptor', 30.00);
-    checkout.scan(item3);
+    checkout.scan(itemAppleTv);
+    checkout.scan(itemMacBookPro);
+    checkout.scan(itemVGA);
 
     expect(checkout.getItemCount()).toBe(3);
 
@@ -64,14 +64,10 @@ describe("Checkout", function() {
 
   it('should scan multiple quantities of the same item into checkout', function(){
 
-    var item1 = new Item('atv', 'Apple TV', 109.50);
-    checkout.scan(item1);
-    var item2 = new Item('atv', 'Apple TV', 109.50);
-    checkout.scan(item2);
-    var item3 = new Item('atv', 'Apple TV', 109.50);
-    checkout.scan(item3);
-    var item4 = new Item('atv', 'Apple TV', 109.50);
-    checkout.scan(item4);
+    checkout.scan(itemAppleTv);
+    checkout.scan(itemAppleTv);
+    checkout.scan(itemAppleTv);
+    checkout.scan(itemAppleTv);
 
     expect(checkout.items.atv.quantity).toBe(4);
 
@@ -80,12 +76,11 @@ describe("Checkout", function() {
 
   it('should remove all items from checkout', function(){
 
-    var item1 = new Item('atv', 'Apple TV', 109.50);
-    checkout.scan(item1);
-    var item2 = new Item('mbp', 'MacBook Pro', 1399.99);
-    checkout.scan(item2);
-    var item3 = new Item('vga', 'VGA adaptor', 30.00);
-    checkout.scan(item3);
+    checkout.scan(itemAppleTv);
+    checkout.scan(itemMacBookPro);
+    checkout.scan(itemVGA);
+
+    expect(checkout.getItemCount()).toBe(3);
 
     checkout.removeAllItems();
 
@@ -96,15 +91,12 @@ describe("Checkout", function() {
 
   it('should calculate checkout total', function(){
 
-    var item1 = new Item('atv', 'Apple TV', 109.50);
-    checkout.scan(item1);
-    var item2 = new Item('mbp', 'MacBook Pro', 1399.99);
-    checkout.scan(item2);
-    var item3 = new Item('vga', 'VGA adaptor', 30.00);
-    checkout.scan(item3);
+    checkout.scan(itemAppleTv);
+    checkout.scan(itemMacBookPro);
+    checkout.scan(itemVGA);
+    checkout.scan(itemSuperIpad);
 
-
-    expect(checkout.total()).toBe(1539.49);
+    expect(checkout.total()).toBe(2089.48);
 
   });
 

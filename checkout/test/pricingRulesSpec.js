@@ -1,5 +1,6 @@
 describe("Pricing Rules", function() {
-  var checkout, itemAppleTv, itemMacBookPro, itemVGA;
+
+  var checkout, itemAppleTv, itemMacBookPro, itemVGA, itemSuperIpad;
 
   beforeEach(function() {
 
@@ -14,7 +15,6 @@ describe("Pricing Rules", function() {
   });
 
   afterEach(function(){
-    checkout.removeAllDiscounts();
     checkout.removeAllItems();
   });
 
