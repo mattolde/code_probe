@@ -29,6 +29,7 @@ describe("Checkout", function() {
 
 
   it('should increase the quantity of the item when scanned into checkout', function() {
+
     var item1 = new Item('atv', 'Apple TV', 109.50);
     checkout.scan(item1);
 
@@ -43,6 +44,7 @@ describe("Checkout", function() {
     checkout.scan(item3);
 
     expect(checkout.getItemCount()).toBe(3);
+
   });
 
 

@@ -26,8 +26,24 @@ var each = function(items, callback){
 
 
 var pricingRules = {
-  applTvDeal: function(items){
-    return 0;
+  appleTvDeal: function(){
+    // 3 for 2 deal on Apple TVs. e.g. buy 3 Apple TVs, you will pay the price of 2 only
+
+    var count = 0;
+
+    var self = this;
+
+    each(this.items, function(item){
+      if(item.sku === 'atv'){
+
+        if(item.quantity >= 3){
+          var discount = -109.50;
+          self.discounts.push(['Buy 3 Apple TVs pay the price of 2', discount]);
+        }
+
+      }
+    });
+
   },
   superIpadDeal: function(items){
     return 0;
@@ -49,6 +65,7 @@ function Checkout(pricingRules){
 
   this.pricingRules = pricingRules;
   this.items = {};
+  this.discounts = [];
 
 }
 
@@ -91,12 +108,27 @@ Checkout.prototype.applySpecial = function(){
 
 
 Checkout.prototype.total = function(){
+
+  // apply specials
+  var self = this;
+
+  each(this.pricingRules, function(pricingRuleFunction){
+    pricingRuleFunction.call(self);
+  });
+
   // calculate checkout total
   var total = 0.00;
 
   each(this.items, function(item){
     total += item.quantity * item.price;
   });
+
+
+  if(this.discounts.length > 0){
+    each(this.discounts, function(discount){
+      total += discount[1];
+    });
+  }
 
   return total;
 };

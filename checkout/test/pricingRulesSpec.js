@@ -28,6 +28,19 @@ describe("Pricing Rules", function() {
 
   });
 
+  it("should charge for only four Apple TVs when six are purchased", function() {
+
+    checkout.scan(itemAppleTv);
+    checkout.scan(itemAppleTv);
+    checkout.scan(itemAppleTv);
+    checkout.scan(itemAppleTv);
+    checkout.scan(itemAppleTv);
+    checkout.scan(itemAppleTv);
+
+    expect(checkout.total()).toBe(438.00);
+
+  });
+
   // Super iPad will have a bulk discounted applied, where the price will drop to $499.99 each, if someone buys more than 4
   it("should charge give a bulk discount of $499.99 on each Super iPad when more then 4 are purchased", function() {
 
