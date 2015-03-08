@@ -72,6 +72,50 @@ describe("Pricing Rules", function() {
 
   });
 
+
+  // examples
+  // SKUs Scanned: atv, atv, atv, vga Total expected: $249.00
+  it('should pass the following example', function(){
+
+    checkout.scan(itemAppleTv);
+    checkout.scan(itemAppleTv);
+    checkout.scan(itemAppleTv);
+    checkout.scan(itemVGA);
+
+
+    expect(checkout.total()).toBe(249.00);
+
+  });
+
+
+  // SKUs Scanned: atv, ipd, ipd, atv, ipd, ipd, ipd Total expected: $2718.95
+  it('should pass the following second example', function(){
+
+    checkout.scan(itemAppleTv);
+    checkout.scan(itemSuperIpad);
+    checkout.scan(itemSuperIpad);
+    checkout.scan(itemAppleTv);
+    checkout.scan(itemSuperIpad);
+    checkout.scan(itemSuperIpad);
+    checkout.scan(itemSuperIpad);
+
+    expect(checkout.total()).toBe(2718.95);
+
+  });
+
+
+  // SKUs Scanned: mbp, vga, ipd Total expected: $1949.98
+  it('should pass the following second example', function(){
+
+    checkout.scan(itemMacBookPro);
+    checkout.scan(itemVGA);
+    checkout.scan(itemSuperIpad);
+
+    expect(checkout.total()).toBe(1949.98);
+
+  });
+
+
   // bundle in a free VGA adapter free of charge with every MacBook Pro sold
   it("should receive a free VGA adapter for every Macbook Pro purchased", function() {
 
