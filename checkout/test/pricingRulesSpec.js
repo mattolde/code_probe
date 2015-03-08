@@ -52,19 +52,23 @@ describe("Pricing Rules", function() {
   });
 
   // Super iPad will have a bulk discounted applied, where the price will drop to $499.99 each, if someone buys more than 4
-  it("should charge give a bulk discount of $499.99 on each Super iPad when more then 4 are purchased", function() {
+  it("should give a bulk discount of $499.99 on each Super iPad when more then 4 are purchased", function() {
 
     checkout.scan(itemSuperIpad);
     checkout.scan(itemSuperIpad);
     checkout.scan(itemSuperIpad);
     checkout.scan(itemSuperIpad);
 
-    expect(checkout.total()).toBe(2199.96);
+    expect(checkout.total()).toBe(1999.96);
 
     checkout.scan(itemSuperIpad);
 
     expect(checkout.total()).toBe(2499.95);
 
+    checkout.scan(itemSuperIpad);
+    checkout.scan(itemSuperIpad);
+
+    expect(checkout.total()).toBe(3499.93);
 
   });
 

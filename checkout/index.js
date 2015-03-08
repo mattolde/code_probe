@@ -46,8 +46,26 @@ var pricingRules = {
     });
 
   },
-  superIpadDeal: function(items){
-    return 0;
+  superIpadDeal: function(){
+
+    var self = this;
+
+    each(this.items, function(item){
+
+      if(item.sku === 'ipd'){
+
+        if(item.quantity >= 4){
+
+          // give discount on each super ipad
+          var discount = Math.abs((item.price - 499.99) * item.quantity) * -1;
+
+          self.discounts.push(['$499.99 on each Super iPad when more then 4 are purchased', discount]);
+
+        }
+      }
+
+    });
+
   },
   macbookProDeal: function(items){
     return 0;
@@ -138,5 +156,7 @@ Checkout.prototype.total = function(){
     });
   }
 
-  return total;
+  // round total to 2 decimal places
+  return Math.round(total * 100) / 100;
+
 };
