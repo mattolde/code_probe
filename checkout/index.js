@@ -25,9 +25,11 @@ var each = function(items, callback){
 };
 
 
-var pricingRules = {
+var pricingRules = (function(){
 
-  appleTvDeal: function(){
+  var exports = {};
+
+  exports.appleTvDeal = function(){
 
     // 3 for 2 deal on Apple TVs. e.g. buy 3 Apple TVs, you will pay the price of 2 only
 
@@ -49,9 +51,9 @@ var pricingRules = {
 
     });
 
-  },
+  };
 
-  superIpadDeal: function(){
+  exports.superIpadDeal = function(){
 
     // Super iPad will have a bulk discounted applied, where the price will drop to $499.99 each, if someone buys more than 4
 
@@ -73,9 +75,10 @@ var pricingRules = {
 
     });
 
-  },
+  };
 
-  macbookProDeal: function(){
+
+  exports.macbookProDeal = function(){
 
     var self = this;
 
@@ -110,8 +113,11 @@ var pricingRules = {
 
     });
 
-  }
-};
+  };
+
+  return exports;
+
+}());
 
 
 function Item(sku, name, price){
